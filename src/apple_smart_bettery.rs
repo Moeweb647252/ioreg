@@ -1,0 +1,678 @@
+use plist::{Data, Dictionary};
+use serde::Deserialize;
+use std::collections::HashMap;
+
+#[derive(Debug, Clone, Deserialize)]
+#[serde(rename_all = "PascalCase")]
+pub struct AppleSmartBattery {
+    // 基本信息
+    #[serde(rename = "PostChargeWaitSeconds")]
+    pub post_charge_wait_seconds: u32,
+    #[serde(rename = "built-in")]
+    pub built_in: bool,
+    #[serde(rename = "AppleRawAdapterDetails")]
+    pub apple_raw_adapter_details: Vec<AdapterDetail>,
+    #[serde(rename = "CurrentCapacity")]
+    pub current_capacity: u32,
+    #[serde(rename = "PackReserve")]
+    pub pack_reserve: u8,
+    #[serde(rename = "DeviceName")]
+    pub device_name: String,
+    #[serde(rename = "PostDischargeWaitSeconds")]
+    pub post_discharge_wait_seconds: u32,
+    #[serde(rename = "CarrierMode")]
+    pub carrier_mode: CarrierMode,
+    #[serde(rename = "TimeRemaining")]
+    pub time_remaining: u32,
+    #[serde(rename = "ChargerConfiguration")]
+    pub charger_configuration: u32,
+
+    // IO相关字段
+    #[serde(rename = "IOGeneralInterest")]
+    pub io_general_interest: String,
+    #[serde(rename = "IOReportLegend")]
+    pub io_report_legend: Vec<IOReportLegendEntry>,
+    #[serde(rename = "IOReportLegendPublic")]
+    pub io_report_legend_public: bool,
+    #[serde(rename = "IOObjectClass")]
+    pub io_object_class: String,
+    #[serde(rename = "IOObjectRetainCount")]
+    pub io_object_retain_count: u32,
+    #[serde(rename = "IORegistryEntryID")]
+    pub io_registry_entry_id: u64,
+    #[serde(rename = "IORegistryEntryName")]
+    pub io_registry_entry_name: String,
+    #[serde(rename = "IOServiceBusyState")]
+    pub io_service_busy_state: u32,
+    #[serde(rename = "IOServiceBusyTime")]
+    pub io_service_busy_time: u64,
+    #[serde(rename = "IOServiceState")]
+    pub io_service_state: u32,
+
+    // 电池状态
+    #[serde(rename = "AtCriticalLevel")]
+    pub at_critical_level: bool,
+    #[serde(rename = "BatteryCellDisconnectCount")]
+    pub battery_cell_disconnect_count: u32,
+    #[serde(rename = "UpdateTime")]
+    pub update_time: u64,
+    #[serde(rename = "Amperage")]
+    pub amperage: i32,
+    #[serde(rename = "AppleRawCurrentCapacity")]
+    pub apple_raw_current_capacity: u32,
+    #[serde(rename = "AbsoluteCapacity")]
+    pub absolute_capacity: u32,
+    #[serde(rename = "AvgTimeToFull")]
+    pub avg_time_to_full: u32,
+    #[serde(rename = "ExternalConnected")]
+    pub external_connected: bool,
+    #[serde(rename = "ExternalChargeCapable")]
+    pub external_charge_capable: bool,
+    #[serde(rename = "AppleRawBatteryVoltage")]
+    pub apple_raw_battery_voltage: u32,
+    #[serde(rename = "BootVoltage")]
+    pub boot_voltage: u32,
+    #[serde(rename = "BatteryData")]
+    pub battery_data: BatteryData,
+    #[serde(rename = "BatteryInstalled")]
+    pub battery_installed: bool,
+    #[serde(rename = "Serial")]
+    pub serial: String,
+    #[serde(rename = "AppleRawExternalConnected")]
+    pub apple_raw_external_connected: bool,
+    #[serde(rename = "KioskMode")]
+    pub kiosk_mode: KioskMode,
+    #[serde(rename = "NominalChargeCapacity")]
+    pub nominal_charge_capacity: u32,
+    #[serde(rename = "FullyCharged")]
+    pub fully_charged: bool,
+    #[serde(rename = "DeadBatteryBootData")]
+    pub dead_battery_boot_data: DeadBatteryBootData,
+    #[serde(rename = "ManufacturerData")]
+    pub manufacturer_data: Data,
+    #[serde(rename = "FedDetails")]
+    pub fed_details: Vec<FedDetail>,
+    #[serde(rename = "FullPathUpdated")]
+    pub full_path_updated: u64,
+    #[serde(rename = "BatteryInvalidWakeSeconds")]
+    pub battery_invalid_wake_seconds: u32,
+    #[serde(rename = "ChargerData")]
+    pub charger_data: ChargerData,
+    #[serde(rename = "BootPathUpdated")]
+    pub boot_path_updated: u64,
+    #[serde(rename = "DesignCycleCount9C")]
+    pub design_cycle_count_9c: u32,
+    #[serde(rename = "AdapterDetails")]
+    pub adapter_details: Dictionary,
+    #[serde(rename = "PowerTelemetryData")]
+    pub power_telemetry_data: PowerTelemetryData,
+    #[serde(rename = "MaxCapacity")]
+    pub max_capacity: u32,
+    #[serde(rename = "InstantAmperage")]
+    pub instant_amperage: i32,
+    #[serde(rename = "PortControllerInfo")]
+    pub port_controller_info: Vec<PortControllerInfoEntry>,
+    #[serde(rename = "GasGaugeFirmwareVersion")]
+    pub gas_gauge_firmware_version: u32,
+    #[serde(rename = "AdapterInfo")]
+    pub adapter_info: u32,
+    #[serde(rename = "Location")]
+    pub location: u32,
+    #[serde(rename = "Temperature")]
+    pub temperature: u32,
+    #[serde(rename = "AvgTimeToEmpty")]
+    pub avg_time_to_empty: u32,
+    #[serde(rename = "BestAdapterIndex")]
+    pub best_adapter_index: u32,
+    #[serde(rename = "DesignCapacity")]
+    pub design_capacity: u32,
+    #[serde(rename = "IsCharging")]
+    pub is_charging: bool,
+    #[serde(rename = "PermanentFailureStatus")]
+    pub permanent_failure_status: u32,
+    #[serde(rename = "Voltage")]
+    pub voltage: u32,
+    #[serde(rename = "UserVisiblePathUpdated")]
+    pub user_visible_path_updated: u64,
+    #[serde(rename = "CycleCount")]
+    pub cycle_count: u32,
+    #[serde(rename = "AppleRawMaxCapacity")]
+    pub apple_raw_max_capacity: u32,
+    #[serde(rename = "VirtualTemperature")]
+    pub virtual_temperature: u32,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+#[serde(rename_all = "PascalCase")]
+pub struct CarrierMode {
+    #[serde(rename = "CarrierModeLowVoltage")]
+    pub carrier_mode_low_voltage: u32,
+    #[serde(rename = "CarrierModeHighVoltage")]
+    pub carrier_mode_high_voltage: u32,
+    #[serde(rename = "CarrierModeStatus")]
+    pub carrier_mode_status: u32,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+#[serde(rename_all = "PascalCase")]
+pub struct IOReportLegendEntry {
+    #[serde(rename = "IOReportChannelInfo")]
+    pub io_report_channel_info: HashMap<String, u32>,
+    #[serde(rename = "IOReportChannels")]
+    pub io_report_channels: Vec<(u64, u64, String)>,
+    #[serde(rename = "IOReportGroupName")]
+    pub io_report_group_name: String,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+#[serde(rename_all = "PascalCase")]
+pub struct BatteryData {
+    #[serde(rename = "Ra03")]
+    pub ra03: u32,
+    #[serde(rename = "Ra10")]
+    pub ra10: u32,
+    #[serde(rename = "CellWom")]
+    pub cell_wom: Vec<u32>,
+    #[serde(rename = "RaTableRaw")]
+    pub ra_table_raw: Vec<Data>,
+    #[serde(rename = "Qstart")]
+    pub qstart: u32,
+    #[serde(rename = "AdapterPower")]
+    pub adapter_power: Option<f64>,
+    #[serde(rename = "TrueRemainingCapacity")]
+    pub true_remaining_capacity: u32,
+    #[serde(rename = "DailyMinSoc")]
+    pub daily_min_soc: u32,
+    #[serde(rename = "Ra04")]
+    pub ra04: u32,
+    #[serde(rename = "CurrentSenseMonitorStatus")]
+    pub current_sense_monitor_status: u32,
+    #[serde(rename = "Ra11")]
+    pub ra11: u32,
+    #[serde(rename = "CellVoltage")]
+    pub cell_voltage: Vec<u32>,
+    #[serde(rename = "PackCurrentAccumulator")]
+    pub pack_current_accumulator: u64,
+    #[serde(rename = "PassedCharge")]
+    pub passed_charge: u32,
+    #[serde(rename = "Flags")]
+    pub flags: u32,
+    #[serde(rename = "PresentDOD")]
+    pub present_dod: Vec<u32>,
+    #[serde(rename = "Ra05")]
+    pub ra05: u32,
+    #[serde(rename = "Ra12")]
+    pub ra12: u32,
+    #[serde(rename = "MiscStatus")]
+    pub misc_status: u32,
+    #[serde(rename = "FccComp1")]
+    pub fcc_comp1: u32,
+    #[serde(rename = "ChemID")]
+    pub chem_id: u32,
+    #[serde(rename = "iMaxAndSocSmoothTable")]
+    pub i_max_and_soc_smooth_table: Data,
+    #[serde(rename = "FccComp2")]
+    pub fcc_comp2: u32,
+    #[serde(rename = "PackCurrentAccumulatorCount")]
+    pub pack_current_accumulator_count: u64,
+    #[serde(rename = "DOD0")]
+    pub dod0: Vec<u32>,
+    #[serde(rename = "Dod0AtQualifiedQmax")]
+    pub dod0_at_qualified_qmax: u32,
+    #[serde(rename = "Ra06")]
+    pub ra06: u32,
+    #[serde(rename = "ResScale")]
+    pub res_scale: u32,
+    #[serde(rename = "Ra13")]
+    pub ra13: u32,
+    #[serde(rename = "FilteredCurrent")]
+    pub filtered_current: i32,
+    #[serde(rename = "WeightedRa")]
+    pub weighted_ra: Vec<u32>,
+    #[serde(rename = "RSS")]
+    pub rss: u32,
+    #[serde(rename = "CellCurrentAccumulatorCount")]
+    pub cell_current_accumulator_count: u32,
+    #[serde(rename = "Serial")]
+    pub serial: String,
+    #[serde(rename = "DataFlashWriteCount")]
+    pub data_flash_write_count: u32,
+    #[serde(rename = "DailyMaxSoc")]
+    pub daily_max_soc: u32,
+    #[serde(rename = "DateOfFirstUse")]
+    pub date_of_first_use: u32,
+    #[serde(rename = "Ra07")]
+    pub ra07: u32,
+    #[serde(rename = "Ra14")]
+    pub ra14: u32,
+    #[serde(rename = "MaxCapacity")]
+    pub max_capacity: u32,
+    #[serde(rename = "ChemicalWeightedRa")]
+    pub chemical_weighted_ra: u32,
+    #[serde(rename = "Ra00")]
+    pub ra00: u32,
+    #[serde(rename = "BatteryHealthMetric")]
+    pub battery_health_metric: u32,
+    #[serde(rename = "DesignCapacity")]
+    pub design_capacity: u32,
+    #[serde(rename = "Ra08")]
+    pub ra08: u32,
+    #[serde(rename = "BatteryState")]
+    pub battery_state: Data,
+    #[serde(rename = "BatteryRsenseOpenCount")]
+    pub battery_rsense_open_count: u32,
+    #[serde(rename = "AlgoChemID")]
+    pub algo_chem_id: u32,
+    #[serde(rename = "MfgData")]
+    pub mfg_data: Data,
+    #[serde(rename = "ManufactureDate")]
+    pub manufacture_date: u64,
+    #[serde(rename = "ISS")]
+    pub iss: i32,
+    #[serde(rename = "Ra01")]
+    pub ra01: u32,
+    #[serde(rename = "Soc1Voltage")]
+    pub soc1_voltage: u32,
+    #[serde(rename = "QmaxDisqualificationReason")]
+    pub qmax_disqualification_reason: u32,
+    #[serde(rename = "ChargeAccum")]
+    pub charge_accum: u32,
+    #[serde(rename = "SimRate")]
+    pub sim_rate: u32,
+    #[serde(rename = "Qmax")]
+    pub qmax: Vec<u32>,
+    #[serde(rename = "CellCurrentAccumulator")]
+    pub cell_current_accumulator: Vec<u32>,
+    #[serde(rename = "ITMiscStatus")]
+    pub it_misc_status: u32,
+    #[serde(rename = "StateOfCharge")]
+    pub state_of_charge: u32,
+    #[serde(rename = "Ra09")]
+    pub ra09: u32,
+    #[serde(rename = "GaugeFlagRaw")]
+    pub gauge_flag_raw: u32,
+    #[serde(rename = "PMUConfigured")]
+    pub pmu_configured: u32,
+    #[serde(rename = "CycleCount")]
+    pub cycle_count: u32,
+    #[serde(rename = "SystemPower")]
+    pub system_power: Option<f64>,
+    #[serde(rename = "Voltage")]
+    pub voltage: u32,
+    #[serde(rename = "LifetimeData")]
+    pub lifetime_data: LifetimeData,
+    #[serde(rename = "Ra02")]
+    pub ra02: u32,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+#[serde(rename_all = "PascalCase")]
+pub struct LifetimeData {
+    #[serde(rename = "Raw")]
+    pub raw: Data,
+    #[serde(rename = "UpdateTime")]
+    pub update_time: u64,
+    #[serde(rename = "ResistanceUpdatedDisabledCount")]
+    pub resistance_updated_disabled_count: u32,
+    #[serde(rename = "CycleCountLastQmax")]
+    pub cycle_count_last_qmax: u32,
+    #[serde(rename = "TimeAtHighSoc")]
+    pub time_at_high_soc: Data,
+    #[serde(rename = "TemperatureSamples")]
+    pub temperature_samples: u32,
+    #[serde(rename = "TotalOperatingTime")]
+    pub total_operating_time: u32,
+    #[serde(rename = "MaximumDischargeCurrent")]
+    pub maximum_discharge_current: i32,
+    #[serde(rename = "MinimumPackVoltage")]
+    pub minimum_pack_voltage: u32,
+    #[serde(rename = "MaximumPackVoltage")]
+    pub maximum_pack_voltage: u32,
+    #[serde(rename = "MaximumChargeCurrent")]
+    pub maximum_charge_current: u32,
+    #[serde(rename = "AverageTemperature")]
+    pub average_temperature: u32,
+    #[serde(rename = "MinimumTemperature")]
+    pub minimum_temperature: u32,
+    #[serde(rename = "RDISCnt")]
+    pub rdis_cnt: u32,
+    #[serde(rename = "MaximumTemperature")]
+    pub maximum_temperature: u32,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+#[serde(rename_all = "PascalCase")]
+pub struct KioskMode {
+    #[serde(rename = "KioskModeLastHighSocHours")]
+    pub kiosk_mode_last_high_soc_hours: u32,
+    #[serde(rename = "KioskModeFullChargeVoltage")]
+    pub kiosk_mode_full_charge_voltage: u32,
+    #[serde(rename = "KioskModeMode")]
+    pub kiosk_mode_mode: u32,
+    #[serde(rename = "KioskModeHighSocSeconds")]
+    pub kiosk_mode_high_soc_seconds: u32,
+    #[serde(rename = "KioskModeHighSocDays")]
+    pub kiosk_mode_high_soc_days: u32,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+#[serde(rename_all = "PascalCase")]
+pub struct DeadBatteryBootData {
+    #[serde(rename = "ActivePayloads")]
+    pub active_payloads: u32,
+    #[serde(rename = "GeneralPayload")]
+    pub general_payload: GeneralPayload,
+    #[serde(rename = "SMCBootManagementPayload")]
+    pub smc_boot_management_payload: SMCBootManagementPayload,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+#[serde(rename_all = "PascalCase")]
+pub struct GeneralPayload {
+    #[serde(rename = "StartBatteryCapacity")]
+    pub start_battery_capacity: u32,
+    #[serde(rename = "PrechargeCount")]
+    pub precharge_count: u32,
+    #[serde(rename = "VbusType")]
+    pub vbus_type: u32,
+    #[serde(rename = "WirelessChargingMode")]
+    pub wireless_charging_mode: u32,
+    #[serde(rename = "StartBatteryVoltage")]
+    pub start_battery_voltage: u32,
+    #[serde(rename = "AdapterType")]
+    pub adapter_type: u32,
+    #[serde(rename = "CloakEntryCount")]
+    pub cloak_entry_count: u32,
+    #[serde(rename = "TimeOnCharger")]
+    pub time_on_charger: u32,
+    #[serde(rename = "AverageBattVirtualTemp")]
+    pub average_batt_virtual_temp: u32,
+    #[serde(rename = "AverageBattSkinTemp")]
+    pub average_batt_skin_temp: u32,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+#[serde(rename_all = "PascalCase")]
+pub struct SMCBootManagementPayload {
+    #[serde(rename = "DisplayTimeBootCount")]
+    pub display_time_boot_count: u32,
+    #[serde(rename = "Ok2SwitchCount")]
+    pub ok2_switch_count: u32,
+    #[serde(rename = "AdapterPower")]
+    pub adapter_power: u32,
+    #[serde(rename = "DeviceResetCount")]
+    pub device_reset_count: u32,
+    #[serde(rename = "HighPoweriBootCount")]
+    pub high_power_i_boot_count: u32,
+    #[serde(rename = "APBootCount")]
+    pub ap_boot_count: u32,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+#[serde(rename_all = "PascalCase")]
+pub struct ChargerData {
+    #[serde(rename = "ChargerStatus")]
+    pub charger_status: Data,
+    #[serde(rename = "VacVoltageLimit")]
+    pub vac_voltage_limit: u32,
+    #[serde(rename = "NotChargingReason")]
+    pub not_charging_reason: u32,
+    #[serde(rename = "SlowChargingReason")]
+    pub slow_charging_reason: u32,
+    #[serde(rename = "ChargerResetCounter")]
+    pub charger_reset_counter: u32,
+    #[serde(rename = "ChargerID")]
+    pub charger_id: u32,
+    #[serde(rename = "TimeChargingThermallyLimited")]
+    pub time_charging_thermally_limited: u32,
+    #[serde(rename = "ChargingVoltage")]
+    pub charging_voltage: u32,
+    #[serde(rename = "ChargerInhibitReason")]
+    pub charger_inhibit_reason: u32,
+    #[serde(rename = "ChargingCurrent")]
+    pub charging_current: u32,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+#[serde(rename_all = "PascalCase")]
+pub struct AdapterDetail {
+    #[serde(rename = "AdapterID")]
+    pub adapter_id: u32,
+    #[serde(rename = "AdapterVoltage")]
+    pub adapter_voltage: u32,
+    #[serde(rename = "Current")]
+    pub current: u32,
+    #[serde(rename = "Description")]
+    pub description: String,
+    #[serde(rename = "FamilyCode")]
+    pub family_code: i32, // 注意这里使用有符号整数，因为值可能为负
+    #[serde(rename = "IsWireless")]
+    pub is_wireless: bool,
+    #[serde(rename = "PMUConfiguration")]
+    pub pmu_configuration: u32,
+    #[serde(rename = "UsbHvcHvcIndex")]
+    pub usb_hvc_hvc_index: u32,
+    #[serde(rename = "UsbHvcMenu")]
+    pub usb_hvc_menu: Vec<UsbHvcMenuItem>,
+    #[serde(rename = "Watts")]
+    pub watts: u32,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+#[serde(rename_all = "PascalCase")]
+pub struct UsbHvcMenuItem {
+    #[serde(rename = "Index")]
+    pub index: u32,
+    #[serde(rename = "MaxCurrent")]
+    pub max_current: u32,
+    #[serde(rename = "MaxVoltage")]
+    pub max_voltage: u32,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+#[serde(rename_all = "PascalCase")]
+pub struct PowerTelemetryData {
+    #[serde(rename = "AccumulatedWallEnergyEstimate")]
+    pub accumulated_wall_energy_estimate: u64,
+    #[serde(rename = "SystemEnergyConsumed")]
+    pub system_energy_consumed: u64,
+    #[serde(rename = "SystemPowerInAccumulatorCount")]
+    pub system_power_in_accumulator_count: u64,
+    #[serde(rename = "AdapterEfficiencyLoss")]
+    pub adapter_efficiency_loss: u64,
+    #[serde(rename = "SystemLoad")]
+    pub system_load: u32,
+    #[serde(rename = "AccumulatedSystemLoad")]
+    pub accumulated_system_load: u64,
+    #[serde(rename = "AccumulatedSystemEnergyConsumed")]
+    pub accumulated_system_energy_consumed: u64,
+    #[serde(rename = "SystemCurrentIn")]
+    pub system_current_in: u32,
+    #[serde(rename = "WallEnergyEstimate")]
+    pub wall_energy_estimate: u64,
+    #[serde(rename = "SystemLoadAccumulatorCount")]
+    pub system_load_accumulator_count: u64,
+    #[serde(rename = "AdapterEfficiencyLossAccumulatorCount")]
+    pub adapter_efficiency_loss_accumulator_count: u64,
+    #[serde(rename = "SystemVoltageIn")]
+    pub system_voltage_in: u32,
+    #[serde(rename = "SystemPowerIn")]
+    pub system_power_in: u64,
+    #[serde(rename = "AccumulatedBatteryPower")]
+    pub accumulated_battery_power: u64,
+    #[serde(rename = "PowerTelemetryErrorCount")]
+    pub power_telemetry_error_count: u32,
+    #[serde(rename = "AccumulatedAdapterEfficiencyLoss")]
+    pub accumulated_adapter_efficiency_loss: u64,
+    #[serde(rename = "BatteryPowerAccumulatorCount")]
+    pub battery_power_accumulator_count: u64,
+    #[serde(rename = "AccumulatedSystemPowerIn")]
+    pub accumulated_system_power_in: u64,
+    #[serde(rename = "BatteryPower")]
+    pub battery_power: i32,
+    #[serde(rename = "AccumulatedBatteryDischarge")]
+    pub accumulated_battery_discharge: i64,
+    #[serde(rename = "BatteryDischargeAccumulatorCount")]
+    pub battery_discharge_accumulator_count: u64,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+#[serde(rename_all = "PascalCase")]
+pub struct FedDetail {
+    #[serde(rename = "FedStateOfCharge")]
+    pub fed_state_of_charge: u32,
+    #[serde(rename = "FedPortPowerRole")]
+    pub fed_port_power_role: u32,
+    #[serde(rename = "FedProductID")]
+    pub fed_product_id: u32,
+    #[serde(rename = "FedDesignCapacity")]
+    pub fed_design_capacity: u32,
+    #[serde(rename = "FedPdSpecRevision")]
+    pub fed_pd_spec_revision: u32,
+    #[serde(rename = "FedSnkConfReason")]
+    pub fed_snk_conf_reason: u32,
+    #[serde(rename = "FedVendorID")]
+    pub fed_vendor_id: u32,
+    #[serde(rename = "FedExternalConnected")]
+    pub fed_external_connected: u32,
+    #[serde(rename = "FedDualRolePower")]
+    pub fed_dual_role_power: u32,
+    #[serde(rename = "FedPwrPolicySt")]
+    pub fed_pwr_policy_st: u32,
+    #[serde(rename = "FedRemainingCapacity")]
+    pub fed_remaining_capacity: u32,
+    #[serde(rename = "FedSrcConfReason")]
+    pub fed_src_conf_reason: u32,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+#[serde(rename_all = "PascalCase")]
+pub struct PortControllerInfoEntry {
+    #[serde(rename = "PortControllerLoserReason")]
+    pub port_controller_loser_reason: u32,
+    #[serde(rename = "PortControllerEvtBuffer")]
+    pub port_controller_evt_buffer: Data,
+    #[serde(rename = "PortControllerFetStatus")]
+    pub port_controller_fet_status: u32,
+    #[serde(rename = "PortControllerFwVersion")]
+    pub port_controller_fw_version: u32,
+    #[serde(rename = "PortControllerAttachCount")]
+    pub port_controller_attach_count: u32,
+    #[serde(rename = "PortControllerDetachCount")]
+    pub port_controller_detach_count: u32,
+    #[serde(rename = "PortControllerHardResetCount")]
+    pub port_controller_hard_reset_count: u32,
+    #[serde(rename = "PortControllerI2cErrCount")]
+    pub port_controller_i2c_err_count: u32,
+    #[serde(rename = "PortControllerBootFlags")]
+    pub port_controller_boot_flags: u32,
+    #[serde(rename = "PortControllerCapMismatch")]
+    pub port_controller_cap_mismatch: u32,
+    #[serde(rename = "PortControllerPortMode")]
+    pub port_controller_port_mode: u32,
+    #[serde(rename = "PortControllerMaxPower")]
+    pub port_controller_max_power: u32,
+    #[serde(rename = "PortControllerSrcTypes")]
+    pub port_controller_src_types: u32,
+    #[serde(rename = "PortControllerDnSt")]
+    pub port_controller_dn_st: u32,
+    #[serde(rename = "PortControllerPDst")]
+    pub port_controller_p_dst: u32,
+    #[serde(rename = "PortControllerPowerState")]
+    pub port_controller_power_state: u32,
+    #[serde(rename = "PortControllerNPDOs")]
+    pub port_controller_n_pdos: u32,
+    #[serde(rename = "PortControllerPortPDO")]
+    pub port_controller_port_pdo: Vec<i32>,
+    #[serde(rename = "PortControllerActiveContractRdo")]
+    pub port_controller_active_contract_rdo: u32,
+    #[serde(rename = "PortControllerElectionFailReason")]
+    pub port_controller_election_fail_reason: u32,
+    #[serde(rename = "PortControllerDataRoleSwapCount")]
+    pub port_controller_data_role_swap_count: u32,
+    #[serde(rename = "PortControllerDataRoleSwapFailCount")]
+    pub port_controller_data_role_swap_fail_count: u32,
+    #[serde(rename = "PortControllerPwrRoleSwapCount")]
+    pub port_controller_pwr_role_swap_count: u32,
+    #[serde(rename = "PortControllerPwrRoleSwapFailCount")]
+    pub port_controller_pwr_role_swap_fail_count: u32,
+    #[serde(rename = "PortControllerSrdoCount")]
+    pub port_controller_srdo_count: u32,
+    #[serde(rename = "PortControllerSrdoRejectCount")]
+    pub port_controller_srdo_reject_count: u32,
+    #[serde(rename = "PortControllerSrdoRetryCount")]
+    pub port_controller_srdo_retry_count: u32,
+    #[serde(rename = "PortControllerSrdyCount")]
+    pub port_controller_srdy_count: u32,
+    #[serde(rename = "PortControllerSrdyRejectCount")]
+    pub port_controller_srdy_reject_count: u32,
+    #[serde(rename = "PortControllerHvEnRecoveryCount")]
+    pub port_controller_hv_en_recovery_count: u32,
+    #[serde(rename = "PortControllerShortDetectCount")]
+    pub port_controller_short_detect_count: u32,
+    #[serde(rename = "PortControllerInpFetEnFailCount")]
+    pub port_controller_inp_fet_en_fail_count: u32,
+    #[serde(rename = "PortControllerSleepCmdFailCount")]
+    pub port_controller_sleep_cmd_fail_count: u32,
+    #[serde(rename = "PortControllerWakeCmdFailCount")]
+    pub port_controller_wake_cmd_fail_count: u32,
+    #[serde(rename = "PortControllerNEprPDOs")]
+    pub port_controller_n_epr_p_dos: u32,
+    #[serde(rename = "PortControllerStuckCmdCount")]
+    pub port_controller_stuck_cmd_count: u32,
+    #[serde(rename = "PortControllerSlpWakDisCause")]
+    pub port_controller_slp_wak_dis_cause: u32,
+    #[serde(rename = "PortControllerSlpWakDisTime")]
+    pub port_controller_slp_wak_dis_time: u32,
+    #[serde(rename = "PortControllerSlpWakIsSleepEnabled")]
+    pub port_controller_slp_wak_is_sleep_enabled: u32,
+    #[serde(rename = "PortControllerSurpriseAckCount")]
+    pub port_controller_surprise_ack_count: u32,
+    #[serde(rename = "PortControllerSurpriseNackCount")]
+    pub port_controller_surprise_nack_count: u32,
+    #[serde(rename = "PortControllerVdoFailCount")]
+    pub port_controller_vdo_fail_count: u32,
+    #[serde(rename = "PortControllerWakeFailCount")]
+    pub port_controller_wake_fail_count: u32,
+    #[serde(rename = "PortControllerWakeTimeoutCount")]
+    pub port_controller_wake_timeout_count: u32,
+    #[serde(rename = "PortControllerUvdmStatus")]
+    pub port_controller_uvdm_status: u32,
+    // IRQ计数器
+    #[serde(rename = "PortControllerIrqCntAlert")]
+    pub port_controller_irq_cnt_alert: u32,
+    #[serde(rename = "PortControllerIrqCntAppLd")]
+    pub port_controller_irq_cnt_app_ld: u32,
+    #[serde(rename = "PortControllerIrqCntConSrc")]
+    pub port_controller_irq_cnt_con_src: u32,
+    #[serde(rename = "PortControllerIrqCntHrdRst")]
+    pub port_controller_irq_cnt_hrd_rst: u32,
+    #[serde(rename = "PortControllerIrqCntPdStsUpd")]
+    pub port_controller_irq_cnt_pd_sts_upd: u32,
+    #[serde(rename = "PortControllerIrqCntPlg")]
+    pub port_controller_irq_cnt_plg: u32,
+    #[serde(rename = "PortControllerIrqCntPwrStsUpd")]
+    pub port_controller_irq_cnt_pwr_sts_upd: u32,
+    #[serde(rename = "PortControllerIrqCntRxIdSop")]
+    pub port_controller_irq_cnt_rx_id_sop: u32,
+    #[serde(rename = "PortControllerIrqCntRxRdo")]
+    pub port_controller_irq_cnt_rx_rdo: u32,
+    #[serde(rename = "PortControllerIrqCntRxSnkCap")]
+    pub port_controller_irq_cnt_rx_snk_cap: u32,
+    #[serde(rename = "PortControllerIrqCntRxSrcCap")]
+    pub port_controller_irq_cnt_rx_src_cap: u32,
+    #[serde(rename = "PortControllerIrqCntStsUpd")]
+    pub port_controller_irq_cnt_sts_upd: u32,
+    #[serde(rename = "PortControllerIrqCntUsb2Plg")]
+    pub port_controller_irq_cnt_usb2_plg: u32,
+    #[serde(rename = "PortControllerIrqCntUsb2Wak")]
+    pub port_controller_irq_cnt_usb2_wak: u32,
+    #[serde(rename = "PortControllerIrqCntUvdmEnum")]
+    pub port_controller_irq_cnt_uvdm_enum: u32,
+    #[serde(rename = "PortControllerIrqCntUvdmStsUpd")]
+    pub port_controller_irq_cnt_uvdm_sts_upd: u32,
+    #[serde(rename = "PortControllerIrqCntWakeAck")]
+    pub port_controller_irq_cnt_wake_ack: u32,
+    #[serde(rename = "PortControllerIrqCntldcm")]
+    pub port_controller_irq_cnt_ldcm: u32,
+}
